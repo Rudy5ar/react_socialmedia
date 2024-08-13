@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import '../css/LoginRegisterButtons.css'
 
 const LoginRegisterButtons = () => {
     const navigate = useNavigate();

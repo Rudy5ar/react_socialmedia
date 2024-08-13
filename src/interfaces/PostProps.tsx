@@ -3,9 +3,7 @@ export interface PostProps {
   description?: string;
   dateCreated?: string;
   image?: string; 
-  user?: {
-    username: string;
-  };
+  user?: string;
   comments?: { text: string }[];
   likes?: { user: { username: string } }[];
 }

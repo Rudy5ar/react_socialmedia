@@ -1,14 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-interface Post {
-  totalLikes: number;
-  description?: string;
-  image?: string; 
-}
+import { PostProps } from '../../interfaces/PostProps';
 
 interface PostsState {
-  posts: Post[];
+  posts: PostProps[];
   loading: boolean;
   error: string | null;
 }
@@ -19,7 +14,7 @@ const initialState: PostsState = {
   error: null,
 };
 
-export const fetchFollowedPosts = createAsyncThunk<Post[], { pageNumber: number; pageSize: number }>(
+export const fetchFollowedPosts = createAsyncThunk<PostProps[], { pageNumber: number; pageSize: number }>(
   'posts/fetchFollowedPosts',
   async (params, { rejectWithValue }) => {
     try {

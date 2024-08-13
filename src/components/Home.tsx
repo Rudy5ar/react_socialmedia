@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchFollowedPosts } from '../features/post/postSlice';
 import Post from './Post';
 import { AppDispatch, RootState } from '../app/store';
+import '../css/Home.css';
+
 
 const Home: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -24,8 +26,10 @@ const Home: React.FC = () => {
           <Post
             key={index}
             totalLikes={post.totalLikes}
-            description={post.description}
-            image={post.image}
+            description={post.description || ''}
+            image={post.image || undefined}
+            dateCreated={post.dateCreated}
+            user={post.user}
           />
         ))
       ) : (

@@ -1,0 +1,12 @@
+/* PostHeader.css */
+
+.post-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.post-header p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+}
