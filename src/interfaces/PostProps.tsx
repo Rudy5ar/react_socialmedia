@@ -1,9 +1,8 @@
-// src/interfaces/PostProps.ts
 export interface PostProps {
   totalLikes: number;
   description?: string;
   dateCreated?: string;
-  image?: string;  // base64 encoded image
+  image?: string; 
   user?: {
     username: string;
   };

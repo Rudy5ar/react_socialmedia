@@ -6,7 +6,7 @@ const Post: React.FC<PostProps> = ({
   totalLikes,
   description,
   dateCreated,
-  image, // This should be a base64 string
+  image, 
   user,
   comments,
   likes

@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Define the Post type without `id`
 interface Post {
   totalLikes: number;
   description?: string;
-  image?: string;  // base64 encoded image
+  image?: string; 
 }
 
 interface PostsState {
@@ -30,7 +29,6 @@ export const fetchFollowedPosts = createAsyncThunk<Post[], { pageNumber: number;
           'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
         }
       });
-      // Verify if 'content' exists in the response
       if (!response.data || !Array.isArray(response.data.content)) {
         throw new Error('Unexpected response structure');
       }

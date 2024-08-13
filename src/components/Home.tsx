@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFollowedPosts } from '../features/post/postSlice';
-import Post from './Post'; // Ensure this path is correct
+import Post from './Post';
 import { AppDispatch, RootState } from '../app/store';
 
 const Home: React.FC = () => {
