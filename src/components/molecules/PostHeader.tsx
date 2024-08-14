@@ -11,8 +11,10 @@ const PostHeader: React.FC<PostHeaderProps> = ({ user, dateCreated }) => {
   
   return (
     <div className="post-header">
-      <p>Created by: {user ? user : 'Unknown User'}</p>
-      <p>Date Created: {dateCreated}</p>
+      <br/>
+      <p>Post by: {user ? user : 'Unknown User'}</p>
+      <br/>
+      <p>{dateCreated}</p>
     </div>
   );
 };

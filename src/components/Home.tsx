@@ -27,9 +27,10 @@ const Home: React.FC = () => {
             key={index}
             totalLikes={post.totalLikes}
             description={post.description || ''}
-            image={post.image || undefined}
+            image={post.image}
             dateCreated={post.dateCreated}
             user={post.user}
+            comments={post.comments}
           />
         ))
       ) : (

@@ -27,6 +27,7 @@ export const fetchFollowedPosts = createAsyncThunk<PostProps[], { pageNumber: nu
       if (!response.data || !Array.isArray(response.data.content)) {
         throw new Error('Unexpected response structure');
       }
+      console.log(response.data.content)
       return response.data.content;
     } catch (error: any) {
       console.error('Failed to fetch followed posts:', error);

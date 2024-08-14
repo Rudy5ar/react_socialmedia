@@ -1,9 +1,11 @@
+import { CommentProps } from './CommentProps';
+
 export interface PostProps {
   totalLikes: number;
   description?: string;
   dateCreated?: string;
-  image?: string; 
+  image: string; 
   user?: string;
-  comments?: { text: string }[];
+  comments?: CommentProps[];
   likes?: { user: { username: string } }[];
 }

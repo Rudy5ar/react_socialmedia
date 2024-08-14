@@ -2,6 +2,7 @@ import React from 'react';
 import PostHeader from './molecules/PostHeader';
 import { PostProps } from '../interfaces/PostProps';
 import { MainPostInfo } from './molecules/MainPostInfo';
+import "../css/Post.css"
 
 
 const Post: React.FC<PostProps> = ({ totalLikes, description, image, dateCreated, user, comments, likes }) => {
@@ -10,9 +11,8 @@ const Post: React.FC<PostProps> = ({ totalLikes, description, image, dateCreated
   return (
     <div className="post">
       <PostHeader user={user} dateCreated={dateCreated} />
-      {base64Image && <img src={base64Image} alt="Post" />}
       <div className="post-content">
-      <MainPostInfo label={description} totalLikes={totalLikes} /> 
+      <MainPostInfo label={description} totalLikes={totalLikes} comments={comments} image={image}/> 
       </div>
     </div>
   );
