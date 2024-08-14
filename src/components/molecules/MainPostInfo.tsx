@@ -1,23 +1,27 @@
 import React from 'react';
-import '../../css/MainPostInfo.css'
+import '../../css/MainPostInfo.css';
 import { CommentProps } from '../../interfaces/CommentProps';
 import { CommentForm } from './CommentForm';
 
 interface MainPostInfoProps {
+  id: number;
   label: string | undefined;
   totalLikes: number;
-  image: string; 
+  image: string;
   comments?: CommentProps[];
 }
-export const MainPostInfo: React.FC<MainPostInfoProps> = ({ label, totalLikes, image, comments }) => {
+
+export const MainPostInfo: React.FC<MainPostInfoProps> = ({ id, label, totalLikes, image, comments }) => {
   const base64Image = image ? `data:image/jpeg;base64,${image}` : null;
 
   return (
-    <div className="form-group">
-      {base64Image && <img src={base64Image} alt="Post" />}
-      <label>{label}</label>
-      <p>Likes: {totalLikes}</p>
-      <CommentForm comments={comments}/>
+    <div className="main-post-info">
+      <div className="main-post-content">
+        <label className="post-label">{label}</label>
+        <p className="post-likes">Likes: {totalLikes}</p>
+      </div>
+      {base64Image && <img src={base64Image} alt="Post" className="post-image" />}
+      <CommentForm comments={comments} postId={id}/>
     </div>
   );
 };

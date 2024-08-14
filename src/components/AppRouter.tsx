@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RegisterForm from "./RegisterForm"
-import LoginForm from './LoginForm';
+import LoginForm from './pages/LoginForm';
 import Home from './Home';
 import { useAuth } from "../contexts/AuthContextType";
 import { Button } from './atoms/Button';

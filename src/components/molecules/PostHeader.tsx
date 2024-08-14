@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../css/PostHeader.css'; 
+import '../../css/PostHeader.css';
 
 
 interface PostHeaderProps {
@@ -8,13 +8,16 @@ interface PostHeaderProps {
 }
 
 const PostHeader: React.FC<PostHeaderProps> = ({ user, dateCreated }) => {
-  
   return (
     <div className="post-header">
-      <br/>
-      <p>Post by: {user ? user : 'Unknown User'}</p>
-      <br/>
-      <p>{dateCreated}</p>
+      <div className="post-header-content">
+        <span>
+          Post by: {user ? user : 'Unknown User'}
+        </span>
+        <span>
+          {dateCreated}
+        </span>
+      </div>
     </div>
   );
 };

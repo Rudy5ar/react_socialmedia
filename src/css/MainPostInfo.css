@@ -1,17 +1,50 @@
-/* MainPostInfo.css */
-
-.form-group {
-    padding: 1rem 0;
-    border-bottom: 1px solid #080707;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
+.main-post-info {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width:60%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  .main-post-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  
+  .post-label {
+    font-size: 1.25rem;
     margin-bottom: 0.5rem;
-}
-
-.form-group p {
-    margin: 0;
-    color: #555;
-}
+  }
+  
+  .post-likes {
+    color: #666;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .main-post-info {
+      padding: 0.5rem;
+    }
+  
+    .post-label, .post-likes {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .main-post-info {
+      margin: 0.5rem;
+    }
+  
+    .post-label, .post-likes {
+      font-size: 0.875rem;
+    }
+  }
+  

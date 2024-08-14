@@ -1,26 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CommentProps } from "../../interfaces/CommentProps";
+import { CommentInput } from './CommentInput';
+import { CommentList } from './CommentList';
 import "../../css/CommentForm.css";
+import { Button } from '../atoms/Button';
 
 interface CommentFormProps {
+    postId: number;
     comments?: CommentProps[];
 }
 
-export const CommentForm: React.FC<CommentFormProps> = ({ comments }) => {
+export const CommentForm: React.FC<CommentFormProps> = ({ postId, comments }) => {
+    const [showAll, setShowAll] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [commentsList, setCommentsList] = useState<CommentProps[]>(comments || []);
+
+    const handleToggleComments = () => {
+        setShowAll(prevShowAll => !prevShowAll);
+    };
+
+    const handleCommentAdded = (newComment: CommentProps) => {
+        setCommentsList(prevComments => [newComment, ...prevComments]);
+    };
+
+    const handleError = (message: string) => {
+        setError(message);
+    };
+
+    const hasComments = commentsList.length > 1;
+
     return (
         <div className="comment-form">
-            {comments && comments.length > 0 ? (
-                <ul className="comment-list">
-                    {comments.map((comment, index) => (
-                        <li key={index} className="comment-card">
-                            <div className="comment-user">Comment by: {comment.user}</div>
-                            <div className="comment-text">{comment.text}</div>
-                            <div className="comment-likes">Comment likes: {comment.numOfLikes}</div>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p className="no-comments">No comments available</p>
+            {error && <p className="error-message">{error}</p>}
+            <CommentInput postId={postId} onCommentAdded={handleCommentAdded} onError={handleError} />
+            <CommentList comments={commentsList} showAll={showAll} />
+            {hasComments && (
+                <Button color="lightblue" onClick={handleToggleComments}>
+                    {showAll ? 'Show less' : 'Show all'}
+                </Button>
             )}
         </div>
     );

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFollowedPosts } from '../features/post/postSlice';
-import Post from './Post';
+import Post from './pages/Post';
 import { AppDispatch, RootState } from '../app/store';
 import '../css/Home.css';
 
@@ -24,6 +24,7 @@ const Home: React.FC = () => {
       {postsToShow.length > 0 ? (
         postsToShow.map((post, index) => (
           <Post
+            id={post.id}
             key={index}
             totalLikes={post.totalLikes}
             description={post.description || ''}

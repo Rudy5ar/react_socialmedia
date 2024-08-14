@@ -1,12 +1,13 @@
-/* PostHeader.css */
-
 .post-header {
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-}
-
-.post-header p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #555;
-}
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 1rem;
+    background-color: #f0f0f0; 
+  }
+  
+  .post-header-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+  }
