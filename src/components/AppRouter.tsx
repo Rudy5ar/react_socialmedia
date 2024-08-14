@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import RegisterForm from "./RegisterForm"
-import LoginForm from './pages/LoginForm';
-import Home from './Home';
-import { useAuth } from "../contexts/AuthContextType";
+import { useAuth } from '../contexts/AuthContextType';
 import { Button } from './atoms/Button';
+import Home from './Home';
+import LoginForm from './pages/LoginForm';
+import RegisterForm from './pages/RegisterForm';
 
 const AppRouter = () => {
     const { isLoggedIn } = useAuth();

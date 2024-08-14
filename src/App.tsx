@@ -1,6 +1,6 @@
 import AppRouter from './components/AppRouter';
+import Header from './components/molecules/Header';
 import { AuthProvider } from './contexts/AuthContextType';
-import Header from './components/Header';
 
 const App = () => {
     return (
