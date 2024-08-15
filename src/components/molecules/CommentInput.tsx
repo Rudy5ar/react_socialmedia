@@ -29,7 +29,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({ postId, onCommentAdd
                 });
                 const addedComment: CommentProps = response.data;
                 setNewComment('');
-                onCommentAdded(addedComment); // Notify parent component of the new comment
+                onCommentAdded(addedComment); 
             } catch (error) {
                 onError('Failed to add comment');
             }
