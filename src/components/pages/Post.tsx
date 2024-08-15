@@ -6,7 +6,7 @@ import "../../css/Post.css";
 import { useLikeDislike } from '../../hooks/useLikeDislike';
 import { Button } from '../atoms/Button';
 
-const Post: React.FC<PostProps> = ({ id, totalLikes, description, image, dateCreated, user, comments, isLiked }) => {
+const Post: React.FC<PostProps> = ({ id, totalLikes, description, image, dateCreated, username, comments, isLiked }) => {
   const { likesCount, handleLikeDislike } = useLikeDislike({ id, initialLikesCount: totalLikes });
 
   const [hasLiked, setHasLiked] = useState(isLiked);
@@ -22,9 +22,9 @@ const Post: React.FC<PostProps> = ({ id, totalLikes, description, image, dateCre
 
   return (
     <div className="post">
-      <PostHeader user={user} dateCreated={dateCreated} />
+      <PostHeader user={username} dateCreated={dateCreated} />
       <div className="post-content">
-        <MainPostInfo id={id} label={description} totalLikes={likesCount} comments={comments} image={image} />
+        <MainPostInfo id={id} label={description} totalLikes={likesCount} comments={comments} image={image} username={username}/>
         <Button
           color={hasLiked ? 'red' : 'blue'}
           onClick={handleButtonClick}

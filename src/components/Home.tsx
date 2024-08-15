@@ -30,7 +30,7 @@ const Home: React.FC = () => {
             description={post.description || ''}
             image={post.image}
             dateCreated={post.dateCreated}
-            user={post.user}
+            username={post.username}
             comments={post.comments}
             isLiked={post.isLiked}
           />

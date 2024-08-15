@@ -1,8 +1,9 @@
 import { ReplyProps } from "./ReplyProps";
 
-export interface CommentProps{
+export interface CommentProps {
+    id: number;
     text: string;
     numOfLikes: number;
-    user: string;
+    username: string;
     replies?: ReplyProps[];
 }

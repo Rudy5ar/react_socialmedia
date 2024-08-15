@@ -8,9 +8,10 @@ import { Button } from '../atoms/Button';
 interface CommentFormProps {
     postId: number;
     comments?: CommentProps[];
+    username: string;
 }
 
-export const CommentForm: React.FC<CommentFormProps> = ({ postId, comments }) => {
+export const CommentForm: React.FC<CommentFormProps> = ({ postId, comments, username }) => {
     const [showAll, setShowAll] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [commentsList, setCommentsList] = useState<CommentProps[]>(comments || []);
@@ -33,7 +34,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId, comments }) =>
         <div className="comment-form">
             {error && <p className="error-message">{error}</p>}
             <CommentInput postId={postId} onCommentAdded={handleCommentAdded} onError={handleError} />
-            <CommentList comments={commentsList} showAll={showAll} />
+            <CommentList comments={commentsList} showAll={showAll} username={username} />
             {hasComments && (
                 <Button color="lightblue" onClick={handleToggleComments}>
                     {showAll ? 'Show less' : 'Show all'}

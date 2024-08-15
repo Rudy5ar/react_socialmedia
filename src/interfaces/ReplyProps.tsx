@@ -1,5 +1,6 @@
-export interface ReplyProps{
+export interface ReplyProps {
+    id: number;
     text: string;
     numOfLikes: number;
-    user: string;
+    username: string;
 }

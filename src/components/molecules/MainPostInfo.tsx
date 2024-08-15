@@ -9,9 +9,10 @@ interface MainPostInfoProps {
   totalLikes: number;
   image: string;
   comments?: CommentProps[];
+  username: string;
 }
 
-export const MainPostInfo: React.FC<MainPostInfoProps> = ({ id, label, totalLikes, image, comments }) => {
+export const MainPostInfo: React.FC<MainPostInfoProps> = ({ id, label, totalLikes, image, comments, username }) => {
   const base64Image = image ? `data:image/jpeg;base64,${image}` : null;
 
   return (
@@ -21,7 +22,7 @@ export const MainPostInfo: React.FC<MainPostInfoProps> = ({ id, label, totalLike
         <p className="post-likes">Likes: {totalLikes}</p>
       </div>
       {base64Image && <img src={base64Image} alt="Post" className="post-image" />}
-      <CommentForm comments={comments} postId={id}/>
+      <CommentForm comments={comments} postId={id} username={username}/>
     </div>
   );
 };

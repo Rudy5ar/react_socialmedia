@@ -6,7 +6,7 @@ export interface PostProps {
   description?: string;
   dateCreated?: string;
   image: string; 
-  user?: string;
+  username: string;
   comments?: CommentProps[];
   isLiked: boolean;
 }
