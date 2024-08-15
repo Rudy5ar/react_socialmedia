@@ -6,15 +6,19 @@ interface PostsState {
   posts: PostProps[];
   loading: boolean;
   error: string | null;
+  pageNumber: number;
+  hasMore: boolean;
 }
 
 const initialState: PostsState = {
   posts: [],
   loading: false,
   error: null,
+  pageNumber: 0,
+  hasMore: true, // Assume there are more posts initially
 };
 
-export const fetchFollowedPosts = createAsyncThunk<PostProps[], { pageNumber: number; pageSize: number }>(
+export const fetchFollowedPosts = createAsyncThunk<{ content: PostProps[], pageable: any, totalPages: number }, { pageNumber: number; pageSize: number }>(
   'posts/fetchFollowedPosts',
   async (params, { rejectWithValue }) => {
     try {
@@ -24,23 +28,28 @@ export const fetchFollowedPosts = createAsyncThunk<PostProps[], { pageNumber: nu
           'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
         }
       });
-      if (!response.data || !Array.isArray(response.data.content)) {
+
+      if (!response.data || !response.data.content || !Array.isArray(response.data.content)) {
         throw new Error('Unexpected response structure');
       }
-      console.log(response.data.content)
-      return response.data.content;
+
+      return response.data; // Return the entire paginated response
     } catch (error: any) {
-      console.error('Failed to fetch followed posts:', error);
       return rejectWithValue(error.message || 'Failed to fetch posts');
     }
   }
 );
 
-
 const postSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    resetPosts: (state) => {
+      state.posts = [];
+      state.pageNumber = 0;
+      state.hasMore = true;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFollowedPosts.pending, (state) => {
@@ -48,7 +57,17 @@ const postSlice = createSlice({
       })
       .addCase(fetchFollowedPosts.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts = action.payload;
+        const { content, pageable, totalPages } = action.payload;
+
+        if (content.length === 0) {
+          state.hasMore = false;
+        } else {
+          state.posts = state.pageNumber === 0
+            ? content
+            : [...state.posts, ...content];
+          state.pageNumber += 1;
+          state.hasMore = state.pageNumber < totalPages;
+        }
         state.error = null;
       })
       .addCase(fetchFollowedPosts.rejected, (state, action) => {
@@ -58,4 +77,5 @@ const postSlice = createSlice({
   },
 });
 
+export const { resetPosts } = postSlice.actions;
 export default postSlice.reducer;
