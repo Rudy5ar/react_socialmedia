@@ -8,5 +8,5 @@ export interface PostProps {
   image: string; 
   user?: string;
   comments?: CommentProps[];
-  likes?: { user: { username: string } }[];
+  isLiked: boolean;
 }

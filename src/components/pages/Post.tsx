@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PostHeader from '../molecules/PostHeader';
 import { PostProps } from '../../interfaces/PostProps';
 import { MainPostInfo } from '../molecules/MainPostInfo';
@@ -6,8 +6,19 @@ import "../../css/Post.css";
 import { useLikeDislike } from '../../hooks/useLikeDislike';
 import { Button } from '../atoms/Button';
 
-const Post: React.FC<PostProps> = ({ id, totalLikes, description, image, dateCreated, user, comments }) => {
-  const { likesCount, hasLiked, handleLikeDislike } = useLikeDislike({ id, initialLikesCount: totalLikes });
+const Post: React.FC<PostProps> = ({ id, totalLikes, description, image, dateCreated, user, comments, isLiked }) => {
+  const { likesCount, handleLikeDislike } = useLikeDislike({ id, initialLikesCount: totalLikes });
+
+  const [hasLiked, setHasLiked] = useState(isLiked);
+
+  useEffect(() => {
+    setHasLiked(isLiked);
+  }, [isLiked]);
+
+  const handleButtonClick = () => {
+    handleLikeDislike();
+    setHasLiked(prevHasLiked => !prevHasLiked); 
+  };
 
   return (
     <div className="post">
@@ -16,7 +27,7 @@ const Post: React.FC<PostProps> = ({ id, totalLikes, description, image, dateCre
         <MainPostInfo id={id} label={description} totalLikes={likesCount} comments={comments} image={image} />
         <Button
           color={hasLiked ? 'red' : 'blue'}
-          onClick={handleLikeDislike}
+          onClick={handleButtonClick}
         >
           {hasLiked ? 'Dislike' : 'Like'}
         </Button>

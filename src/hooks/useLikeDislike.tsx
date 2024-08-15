@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 interface UseLikeDislikeProps {
@@ -8,28 +8,6 @@ interface UseLikeDislikeProps {
 
 export const useLikeDislike = ({ id, initialLikesCount }: UseLikeDislikeProps) => {
   const [likesCount, setLikesCount] = useState(initialLikesCount);
-  const [hasLiked, setHasLiked] = useState(false);
-
-  useEffect(() => {
-    const fetchLikeStatus = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/api/posts/isLiked', {
-          params: { idPost: id },
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` }
-        });
-
-        if (response.status === 200) {
-          setHasLiked(response.data);
-        } else {
-          console.error('Unexpected response status:', response.status);
-        }
-      } catch (error) {
-        console.error('Error fetching like status', error);
-      }
-    };
-
-    fetchLikeStatus();
-  }, [id]);
 
   const handleLikeDislike = async () => {
     try {
@@ -45,7 +23,6 @@ export const useLikeDislike = ({ id, initialLikesCount }: UseLikeDislikeProps) =
 
       if (statusResponse.status === 200) {
         const isLiked = statusResponse.data;
-        setHasLiked(isLiked);
 
         if (isLiked) {
           setLikesCount(prevCount => prevCount + 1);
@@ -60,5 +37,5 @@ export const useLikeDislike = ({ id, initialLikesCount }: UseLikeDislikeProps) =
     }
   };
 
-  return { likesCount, hasLiked, handleLikeDislike };
+  return { likesCount, handleLikeDislike };
 };

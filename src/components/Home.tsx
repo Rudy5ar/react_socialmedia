@@ -32,6 +32,7 @@ const Home: React.FC = () => {
             dateCreated={post.dateCreated}
             user={post.user}
             comments={post.comments}
+            isLiked={post.isLiked}
           />
         ))
       ) : (
