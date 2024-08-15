@@ -3,32 +3,28 @@ import { CommentProps } from "../../interfaces/CommentProps";
 import { ReplyProps } from '../../interfaces/ReplyProps';
 import { Button } from '../atoms/Button';
 import axios from 'axios';
+import { ReplyInput } from './ReplyInput';
 
 interface CommentListProps {
     comments?: CommentProps[];
-    replies?: ReplyProps[];
     showAll: boolean;
     username: string;
 }
 
-export const CommentList: React.FC<CommentListProps> = ({ comments, replies, showAll, username }) => {
-    const [showAllReplies, setShowAllReplies] = useState(false);
+export const CommentList: React.FC<CommentListProps> = ({ comments, showAll, username }) => {
+    const [showAllReplies, setShowAllReplies] = useState<{ [key: number]: boolean }>({});
     const [localComments, setLocalComments] = useState<CommentProps[]>([]);
-    const [localReplies, setLocalReplies] = useState<ReplyProps[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (comments) setLocalComments(comments);
     }, [comments]);
 
-    useEffect(() => {
-        if (replies) setLocalReplies(replies);
-    }, [replies]);
-
-    const displayedComments = showAll ? localComments : localComments.slice(0, 1);
-    const displayedReplies = showAllReplies ? localReplies : localReplies.slice(0, 1);
-
-    const handleToggleReplies = () => {
-        setShowAllReplies(prev => !prev);
+    const handleToggleReplies = (commentId: number) => {
+        setShowAllReplies(prev => ({
+            ...prev,
+            [commentId]: !prev[commentId]
+        }));
     };
 
     const likeDislikeComment = async (commentId: number) => {
@@ -59,22 +55,40 @@ export const CommentList: React.FC<CommentListProps> = ({ comments, replies, sho
                 },
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` }
             });
-            setLocalReplies(prevReplies =>
-                prevReplies.map(reply =>
-                    reply.id === replyId ? response.data : reply
-                )
+            setLocalComments(prevComments =>
+                prevComments.map(comment => ({
+                    ...comment,
+                    replies: comment.replies?.map(reply =>
+                        reply.id === replyId ? response.data : reply
+                    )
+                }))
             );
         } catch (error) {
             console.error('Error liking/disliking reply:', error);
         }
     };
 
+    const handleCommentAdded = (commentId: number, newReply: ReplyProps) => {
+        setLocalComments(prevComments =>
+            prevComments.map(comment =>
+                comment.id === commentId
+                    ? { ...comment, replies: [newReply, ...(comment.replies || [])] }
+                    : comment
+            )
+        );
+    };
+
+    const handleError = (message: string) => {
+        setError(message);
+    };
+
     return (
         <>
             {localComments.length > 0 && (
                 <div className="comment-list">
+                    {error && <p className="error-message">{error}</p>}
                     <ul className="comment-list-items">
-                        {displayedComments.map(comment => (
+                        {localComments.map(comment => (
                             <li key={comment.id} className="comment-card">
                                 <div className="comment-user">Comment by: {comment.username}</div>
                                 <div className="comment-text">{comment.text}</div>
@@ -84,38 +98,33 @@ export const CommentList: React.FC<CommentListProps> = ({ comments, replies, sho
                                 <Button onClick={() => likeDislikeComment(comment.id)}>
                                     Like/Dislike Comment
                                 </Button>
-                                <CommentList
-                                    comments={comment.replies}
-                                    showAll={showAll}
-                                    username={username}
-                                />
+                                <ReplyInput commentId={comment.id} onReplyAdded={(newReply) => handleCommentAdded(comment.id, newReply)} onError={handleError} />
+                                {comment.replies && comment.replies.length > 0 && (
+                                    <div className="reply-section">
+                                        {comment.replies.length > 1 && (
+                                            <Button onClick={() => handleToggleReplies(comment.id)}>
+                                                {showAllReplies[comment.id] ? 'Show less replies' : 'Show all replies'}
+                                            </Button>
+                                        )}
+                                        <ul className="reply-list-items">
+                                            {(showAllReplies[comment.id] ? comment.replies : comment.replies.slice(0, 1)).map(reply => (
+                                                <li key={reply.id} className="reply-card">
+                                                    <div className="reply-user">Reply by: {reply.username}</div>
+                                                    <div className="reply-text">{reply.text}</div>
+                                                    <div className="reply-likes">
+                                                        Reply likes: {reply.numOfLikes}
+                                                    </div>
+                                                    <Button onClick={() => likeDislikeReply(reply.id)}>
+                                                        Like/Dislike Reply
+                                                    </Button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
                             </li>
                         ))}
                     </ul>
-                </div>
-            )}
-
-            {localReplies.length > 0 && (
-                <div className="reply-list">
-                    <ul className="reply-list-items">
-                        {displayedReplies.map(reply => (
-                            <li key={reply.id} className="reply-card">
-                                <div className="reply-user">Reply by: {reply.username}</div>
-                                <div className="reply-text">{reply.text}</div>
-                                <div className="reply-likes">
-                                    Reply likes: {reply.numOfLikes}
-                                </div>
-                                <Button onClick={() => likeDislikeReply(reply.id)}>
-                                    Like/Dislike Reply
-                                </Button>
-                            </li>
-                        ))}
-                    </ul>
-                    {replies && replies.length > 1 && (
-                        <button onClick={handleToggleReplies}>
-                            {showAllReplies ? 'Show less replies' : 'Show all replies'}
-                        </button>
-                    )}
                 </div>
             )}
         </>

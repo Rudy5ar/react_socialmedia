@@ -1,17 +1,15 @@
-// ReplyInput.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button } from '../atoms/Button';
 import { ReplyProps } from '../../interfaces/ReplyProps';
 
 interface ReplyInputProps {
-    postId: number;
+    commentId: number;
     onReplyAdded: (newReply: ReplyProps) => void;
     onError: (message: string) => void;
-    username: string;
 }
 
-export const ReplyInput: React.FC<ReplyInputProps> = ({ postId, onReplyAdded, onError, username }) => {
+export const ReplyInput: React.FC<ReplyInputProps> = ({ commentId, onReplyAdded, onError }) => {
     const [replyText, setReplyText] = useState('');
 
     const handleReplyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +26,7 @@ export const ReplyInput: React.FC<ReplyInputProps> = ({ postId, onReplyAdded, on
             const response = await axios.post('http://localhost:8080/api/commentreply/createReply', null, {
                 params: {
                     text: replyText,
-                    username,
-                    postId
+                    commentId, 
                 },
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}` }
             });
