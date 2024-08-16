@@ -8,8 +8,7 @@ const LoginForm: React.FC = () => {
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
     const [message, setMessage] = useState<string | null>(null);
-    const {setIsLoggedIn} = useAuth();
-
+    const { setIsLoggedIn, setUsername: setAuthUsername } = useAuth();  
 
     const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,6 +21,7 @@ const LoginForm: React.FC = () => {
             console.log('Login Successful:', response.data);
             localStorage.setItem('jwtToken', response.data.token);
             setIsLoggedIn(true);
+            setAuthUsername?.(username);
             navigate('/home');
         } catch (error) {
             console.error('Error during login:', error);

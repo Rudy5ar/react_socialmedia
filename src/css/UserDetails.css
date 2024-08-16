@@ -1,0 +1,21 @@
+.user-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 16px; 
+  }
+  
+  .post-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+  }
+  
+  .post-image {
+    width: 100%; 
+    height: auto; 
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  

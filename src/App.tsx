@@ -1,16 +1,17 @@
 import AppRouter from './components/AppRouter';
-import Header from './components/molecules/Header';
+import Header from './components/parts/Header';
 import { AuthProvider } from './contexts/AuthContextType';
 
 const App = () => {
-    return (
-      <>
+  
+  return (
+    <>
       <AuthProvider>
-      <Header />
-      <AppRouter/>
+        <Header />
+        <AppRouter />
       </AuthProvider>
-      </>
-    );
+    </>
+  );
 };
 
 export default App;

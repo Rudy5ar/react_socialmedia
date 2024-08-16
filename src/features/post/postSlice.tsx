@@ -15,7 +15,7 @@ const initialState: PostsState = {
   loading: false,
   error: null,
   pageNumber: 0,
-  hasMore: true, // Assume there are more posts initially
+  hasMore: true,
 };
 
 export const fetchFollowedPosts = createAsyncThunk<{ content: PostProps[], pageable: any, totalPages: number }, { pageNumber: number; pageSize: number }>(
@@ -33,7 +33,7 @@ export const fetchFollowedPosts = createAsyncThunk<{ content: PostProps[], pagea
         throw new Error('Unexpected response structure');
       }
 
-      return response.data; // Return the entire paginated response
+      return response.data; 
     } catch (error: any) {
       return rejectWithValue(error.message || 'Failed to fetch posts');
     }
@@ -57,7 +57,7 @@ const postSlice = createSlice({
       })
       .addCase(fetchFollowedPosts.fulfilled, (state, action) => {
         state.loading = false;
-        const { content, pageable, totalPages } = action.payload;
+        const { content, totalPages } = action.payload;
 
         if (content.length === 0) {
           state.hasMore = false;

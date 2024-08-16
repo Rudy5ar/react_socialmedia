@@ -25,7 +25,7 @@ const Post: React.FC<PostProps> = ({ id, totalLikes, description, image, dateCre
       <PostHeader user={username} dateCreated={dateCreated} />
       <div className="post-content">
         <MainPostInfo id={id} label={description} totalLikes={likesCount} comments={comments} image={image} username={username}/>
-        <Button
+        <br/><Button
           color={hasLiked ? 'red' : 'blue'}
           onClick={handleButtonClick}
         >

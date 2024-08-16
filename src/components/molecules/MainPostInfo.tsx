@@ -19,10 +19,10 @@ export const MainPostInfo: React.FC<MainPostInfoProps> = ({ id, label, totalLike
     <div className="main-post-info">
       <div className="main-post-content">
         <label className="post-label">{label}</label>
-        <p className="post-likes">Likes: {totalLikes}</p>
       </div>
       {base64Image && <img src={base64Image} alt="Post" className="post-image" />}
       <CommentForm comments={comments} postId={id} username={username}/>
-    </div>
+      <p className="post-likes">Likes: {totalLikes}</p>
+      </div>
   );
 };
