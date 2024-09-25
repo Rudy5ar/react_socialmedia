@@ -1,2 +1,2 @@
 # react_socialmedia
-Front-end for the social media REST api
+The project is on the MASTER branch
