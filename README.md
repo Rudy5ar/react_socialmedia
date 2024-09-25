@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# Social Media Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+This is a social media clone built with React, TypeScript, and Vite. The application allows users to create accounts, post updates, comment on posts, and like/dislike posts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- User authentication using a token-based system
+- Posting and commenting functionality
+- Liking and disliking posts
+- User profiles and details
+- Home page with a list of posts
+- Individual post details page
+- Login and registration forms
+- Footer component with links
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technical Details
 
-- Configure the top-level `parserOptions` property like this:
+- Built with React and TypeScript
+- Uses Vite as the build tool
+- Redux for state management
+- Modular structure with separate files for components, contexts, and utilities
+- CSS for styling
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Getting Started
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Prerequisites
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Node.js (version 14 or higher)
+- npm (version 6 or higher)
+- Vite (version 2 or higher)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Installation
+
+1. Clone the repository: `git clone https://github.com/your-username/social-media-clone.git`
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
+
+## Usage
+
+1. Open the application in your web browser: `http://localhost:3000`
+2. Register for an account or log in with an existing account
+3. Create a new post or comment on an existing post
+4. Like or dislike a post
+
+## Contributing
+
+Contributions are welcome! Please submit a pull request with a clear description of the changes made.
+
+## Acknowledgments
+
+- This project was built using the Vite template for React and TypeScript.
+- Inspiration was drawn from various social media platforms.
